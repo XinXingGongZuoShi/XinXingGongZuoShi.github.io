@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="新星工作室应用支持与反馈">
+  <title>应用支持 · 新星工作室</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f1c24;
+      --ink-soft: #243842;
+      --mist: #e8f1f0;
+      --foam: #f4faf8;
+      --accent: #1f8a7a;
+      --accent-deep: #14675b;
+      --accent-glow: rgba(31, 138, 122, 0.28);
+      --line: rgba(15, 28, 36, 0.1);
+      --muted: #5d7270;
+      --danger: #c45c4a;
+      --radius: 18px;
+      --shadow: 0 24px 60px rgba(15, 28, 36, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+      font-family: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      color: var(--ink);
+      background: var(--foam);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 55% at 12% 8%, rgba(94, 196, 178, 0.35), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 88% 18%, rgba(214, 178, 120, 0.28), transparent 50%),
+        radial-gradient(ellipse 60% 45% at 50% 100%, rgba(31, 138, 122, 0.18), transparent 55%),
+        linear-gradient(165deg, #f7fbfa 0%, #e7f2ef 45%, #dceae6 100%);
+    }
+
+    .bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(15, 28, 36, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 28, 36, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.55;
+      animation: drift 14s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .orb-a {
+      width: 220px;
+      height: 220px;
+      top: 12%;
+      left: -40px;
+      background: #7fd1c2;
+      animation-delay: -2s;
+    }
+
+    .orb-b {
+      width: 260px;
+      height: 260px;
+      top: 55%;
+      right: -70px;
+      background: #e2c08a;
+      animation-delay: -6s;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(18px, -22px, 0) scale(1.08); }
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 48px;
+    }
+
+    .shell {
+      width: min(440px, 100%);
+      animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: Syne, "Noto Sans SC", sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+
+    .brand-mark span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2fb59f, #d4a85a);
+      box-shadow: 0 0 0 6px var(--accent-glow);
+      animation: pulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px var(--accent-glow); }
+      50% { box-shadow: 0 0 0 10px rgba(31, 138, 122, 0.08); }
+    }
+
+    .brand h1 {
+      font-family: Syne, "Noto Sans SC", sans-serif;
+      font-weight: 800;
+      font-size: clamp(34px, 8vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    .brand p {
+      max-width: 30em;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 28px;
+      padding: 28px 24px 24px;
+      box-shadow: var(--shadow);
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent-deep);
+      margin-bottom: 18px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      font: inherit;
+      font-size: 15px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #93a5a2;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(31, 138, 122, 0.55);
+      box-shadow: 0 0 0 4px var(--accent-glow);
+    }
+
+    .actions {
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      border-radius: 999px;
+      padding: 15px 20px;
+      font-family: Syne, "Noto Sans SC", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      background: linear-gradient(135deg, #1f8a7a 0%, #14675b 100%);
+      box-shadow: 0 12px 28px rgba(20, 103, 91, 0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 16px 34px rgba(20, 103, 91, 0.34);
+    }
+
+    button:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    .hint {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(20px);
+      z-index: 20;
+      min-width: min(340px, calc(100vw - 32px));
+      background: var(--ink);
+      color: #fff;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: 13px;
+      line-height: 1.55;
+      box-shadow: 0 18px 40px rgba(15, 28, 36, 0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .footer {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 12px;
+      color: #7d908d;
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    }
+
+    @media (max-width: 420px) {
+      .page { padding: 28px 16px 36px; }
+      .panel { padding: 22px 18px 18px; border-radius: 24px; }
+      .brand h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+  </div>
+
+  <main class="page">
+    <div class="shell">
+      <header class="brand">
+        <div class="brand-mark"><span></span>XinXing Studio</div>
+        <h1>应用支持</h1>
+        <p>感谢使用我们的应用。有问题、建议或异常反馈，都可以在这里告诉我们，我们会尽快回复。</p>
+      </header>
+
+      <section class="panel">
+        <div class="panel-title">FEEDBACK</div>
+        <form id="supportForm" novalidate>
+          <div class="field">
+            <label for="nickname">昵称</label>
+            <input id="nickname" name="nickname" type="text" placeholder="怎么称呼您" autocomplete="nickname" required>
+          </div>
+          <div class="field">
+            <label for="email">邮箱</label>
+            <input id="email" name="email" type="email" placeholder="用于接收回复" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="message">反馈内容</label>
+            <textarea id="message" name="message" placeholder="请尽量描述遇到的问题、出现步骤或期望效果" required></textarea>
+          </div>
+          <div class="actions">
+            <button type="submit">提交反馈</button>
+            <p class="hint">通常会在 24 小时内回复，感谢耐心等待。</p>
+          </div>
+        </form>
+      </section>
+
+      <p class="footer">新星工作室 · App Support</p>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      var form = document.getElementById("supportForm");
+      var toast = document.getElementById("toast");
+      var timer;
+
+      function showToast(text) {
+        toast.textContent = text;
+        toast.classList.add("show");
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          toast.classList.remove("show");
+        }, 3200);
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var nickname = form.nickname.value.trim();
+        var email = form.email.value.trim();
+        var message = form.message.value.trim();
+
+        if (!nickname || !email || !message) {
+          showToast("请完整填写昵称、邮箱和反馈内容。");
+          return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showToast("请输入有效的邮箱地址。");
+          return;
+        }
+
+        setTimeout(function () {
+          showToast("感谢联系我们，已收到您的反馈，将在 24 小时内回复。");
+          form.reset();
+        }, 280);
+      });
+    })();
+  </script>
+</body>
+</html>
